@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sofia&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(184, 184, 184);
+    }
+    #container {
+        max-width: 375px;
+        /* border: 2px solid #0000ff; */
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        font-family: 'Sofia', cursive;
+        height: 26rem;
+        width: 28rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+
+
+    }
+
+    #quotes {
+        /* border: 1px solid black; */
+        display: block;
+        padding: 0.5rem;
+        height: 10rem;
+        text-align: justify;
+        font-size: 1.5rem;
+
+        /* text-align: center; */
+    }
+
+    #author {
+        /* border: 1px solid black; */
+        display: block;
+        height: 2rem;
+        padding: 0.5rem;
+        font-weight: bolder;
+
+        text-align: justify;
+        font-size: 1.1rem;
+
+    }
+
+    #new-quote {
+        color: white;
+        font-family: cursive;
+        background-color:rgb(99, 99, 99);
+        height: 3rem;
+        margin-top: 1rem;
+        border-radius: 5px;
+        font-weight: bolder;
+        font-size: 1.2rem;
+    }
+</style>
+
+<body>
+    <div id="container">
+        <div id="quotes"></div>
+        <div id="author"></div>
+        <button onclick="getQuotes()" id="new-quote">New Quote</button>
+    </div>
+</body>
+<script>
+    // let realData = '';
+    const quotes = document.getElementById('quotes');
+    const author = document.getElementById('author');
+    let qd = "";
+    const getNewQuote = (realData) => {
+        let rnum = Math.floor(Math.random() * 1642);
+
+        // console.log(rnum);
+        // console.log(realData[rnum].text);
+        // console.log(realData[rnum].author);
+        qd = realData[rnum];
+
+        quotes.innerHTML = `${realData[rnum].text}`
+        qd.author == null
+            ? (author.innerHTML = 'Unknown')
+            : (author.innerHTML = `- ${realData[rnum].author}`)
+
+    };
+
+    const getQuotes = async () => {
+        const api = "https://type.fit/api/quotes";
+        try {
+            let data = await fetch(api);
+            let realData = await data.json();
+            getNewQuote(realData);
+
+
+        }
+        catch (error) { }
+    };
+
+    getQuotes();
+
+</script>
+
+</html>
