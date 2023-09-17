@@ -79,6 +79,8 @@
     // let realData = '';
     const quotes = document.getElementById('quotes');
     const author = document.getElementById('author');
+    author=author.split(',')[0];
+    
     let qd = "";
     const getNewQuote = (realData) => {
         let rnum = Math.floor(Math.random() * 10);
